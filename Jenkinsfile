@@ -1,6 +1,6 @@
 node {
-    def registry1 = 'capstone-udacity/blue'
-    def registry2 = 'capstone-udacity/green'
+    def registry1 = 'amirshazlan/blue'
+    def registry2 = 'amirshazlan/green'
     
     stage('Checking out git repo') {
       echo 'Checkout...'
@@ -22,8 +22,8 @@ node {
   
   stage('Building image blue') {
     echo 'building blue image'
-    withDockerRegistry([url: "", credentialsId: "dockerhub"]) {
-     	sh "sudo docker login -u ${env.dockerUsername} -p ${env.dockerHubPassword}"
+    withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerhubPassword', usernameVariable: 'dockerhubUsername')]) {
+     	sh "sudo docker login -u ${env.dockerhubUsername} -p ${env.dockerhubPassword}"
      	sh "sudo docker build -t ${registry1} blue/."
      	sh "sudo docker tag ${registry1} ${registry1}"
      	sh "sudo docker push ${registry1}"
@@ -32,8 +32,8 @@ node {
 
   stage('Building image green') {
     echo 'building green image'
-    withDockerRegistry([url: "", credentialsId: "dockerhub"]) {
-     	sh "sudo docker login -u ${env.dockerUsername} -p ${env.dockerHubPassword}"
+    withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerhubPassword', usernameVariable: 'dockerhubUsername')]) {
+     	sh "sudo docker login -u ${env.dockerhubUsername} -p ${env.dockerhubPassword}"
      	sh "sudo docker build -t ${registry2} green/."
      	sh "sudo docker tag ${registry2} ${registry2}"
      	sh "sudo docker push ${registry2}"
