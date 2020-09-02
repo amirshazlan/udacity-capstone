@@ -24,7 +24,7 @@
 
 ***
 
-<p>Project Files</p>
+<p>Project folder and files structure</p>
 
 <ul>
 	<li>AWS - includes eksctl command</li>
@@ -39,10 +39,11 @@
 
 <p>How to build</p>
 
-<ul>
-	<li>SSH into Jenkins instance and run eksctl command</li>
-	<li>After Cloudformation creates resources, create  Jenkins pipeline</li>
+<ol type='1'>
+	<li>Enter into Jenkins instance via SSH and run command to create Kubernates clusters</li>
+	<li>After Cloudformation creates resources, run the Jenkins pipeline</li>
 	<li>Jenkins pipeline will create Docker images and upload to DockerHub</li>
 	<li>Jenkins will pull images from DockerHub and deploy them into pods</li>
-	<li>Access webpage from LoadBalancer link on port 8080</li>
-</ul>
+	<li>Open page from LoadBalancer link on port 8000</li>
+	<li>Update the blue-green service JSON file to redirect service. Jenkins pipeline will run automatically</li>
+</ol>
